@@ -1,12 +1,8 @@
 # Import necessary libraries
 import cv2
-import numpy as np
 from deepface import DeepFace
-import os
 from datetime import datetime
-import json
 from collections import deque
-import time
 import threading
 import tkinter as tk
 from PIL import Image, ImageTk
