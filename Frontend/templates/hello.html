@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentiSense - Your Personal Journal Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body class="min-h-screen bg-[#FFFCF5]">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#FFFCF5]/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <div class="flex items-center space-x-1">
+                        <a href="/" class="flex items-center">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2024-11-09_at_1.33.19_PM-removebg-preview-lpuDEKXz9GYGrCANiosfwZ5paUrMNQ.png" alt="SentiSense Elephant" class="h-10 w-auto mr-1">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/senti_sense_is_an_online_journal__make_an_orange_and_white_logo-removebg-preview-DhrNE9AxRnMgTx1wS9B4oaGMBUd3vO.png" alt="SentiSense Logo" class="h-12 w-auto">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between py-20 md:py-32">
+                <div class="flex-1 max-w-2xl">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                        Your Personal<br>Journal Assistant
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Track and improve your mental wellness through video journaling.
+                        Our AI-powered assistant helps you reflect, process emotions, and
+                        gain valuable insights tailored just for you.
+                    </p>
+                    <a href="#journal-section" class="bg-[#B84545] hover:bg-[#963838] text-white px-8 py-6 rounded-full text-lg font-medium transition-colors inline-block">
+                        Start Journaling
+                    </a>
+                </div>
+                <div class="flex-1 flex justify-center mt-12 md:mt-0">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2024-11-09_at_1.33.19_PM-removebg-preview-lpuDEKXz9GYGrCANiosfwZ5paUrMNQ.png" alt="SentiSense Elephant Assistant" class="w-auto h-[400px]">
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="bg-white py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- AI-driven -->
+                    <div class="text-center">
+                        <div class="inline-block rounded-full p-4 bg-yellow-100 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.63 14.75c-.84-.82-2.22-.82-3.06 0a2.16 2.16 0 0 0 0 3.06c.84.82 2.22.82 3.06 0 .82-.84.82-2.22 0-3.06z"/><path d="M18.57 17.81a2.16 2.16 0 0 1-3.06 0 2.16 2.16 0 0 1 0-3.06c.84-.82 2.22-.82 3.06 0"/><path d="M13.5 21.75a2.16 2.16 0 0 1-3.06 0 2.16 2.16 0 0 1 0-3.06c.84-.82 2.22-.82 3.06 0"/><path d="M18.57 11.69c-.84-.82-2.22-.82-3.06 0a2.16 2.16 0 0 0 0 3.06c.84.82 2.22.82 3.06 0 .82-.84.82-2.22 0-3.06z"/><path d="M13.5 15.75a2.16 2.16 0 0 1-3.06 0 2.16 2.16 0 0 1 0-3.06c.84-.82 2.22-.82 3.06 0"/><path d="M10.44 13.69c-.84-.82-2.22-.82-3.06 0a2.16 2.16 0 0 0 0 3.06c.84.82 2.22.82 3.06 0 .82-.84.82-2.22 0-3.06z"/><path d="M10.44 19.75c-.84-.82-2.22-.82-3.06 0a2.16 2.16 0 0 0 0 3.06c.84.82 2.22.82 3.06 0 .82-.84.82-2.22 0-3.06z"/><path d="M15.94 11.69a2.16 2.16 0 0 0 0-3.06 2.16 2.16 0 0 0-3.06 0 2.16 2.16 0 0 0 0 3.06 2.16 2.16 0 0 0 3.06 0z"/><path d="M10.44 7.69a2.16 2.16 0 0 0 0-3.06 2.16 2.16 0 0 0-3.06 0 2.16 2.16 0 0 0 0 3.06 2.16 2.16 0 0 0 3.06 0z"/><path d="M15.94 5.69a2.16 2.16 0 0 0 0-3.06 2.16 2.16 0 0 0-3.06 0 2.16 2.16 0 0 0 0 3.06 2.16 2.16 0 0 0 3.06 0z"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">AI-driven</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>Chat with our highly trained AI assistant - Ella</li>
+                            <li>Get immediate advice based off your daily journals</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Value Your Time -->
+                    <div class="text-center">
+                        <div class="inline-block rounded-full p-4 bg-green-100 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">Value Your Time</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>No typing for long periods</li>
+                            <li>No waiting time for advice</li>
+                            <li>Quick response from Ella</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Anonymous Journals -->
+                    <div class="text-center">
+                        <div class="inline-block rounded-full p-4 bg-blue-100 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">Anonymous Journals</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>No data storage</li>
+                            <li>No login details</li>
+                            <li>No ads, No personal information</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How it works Section -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    How does SentiSense <span class="bg-pink-200 px-4 py-1 rounded-full">work?</span>
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- AI Powered Emotion Insights -->
+                    <div class="space-y-6">
+                        <div class="text-2xl font-semibold">
+                            <span class="text-gray-400">01.</span> AI Powered Emotion Insights
+                        </div>
+                        <div class="bg-orange-100 rounded-3xl p-6 aspect-[9/16] relative">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-11-09%20at%203.03.54%E2%80%AFPM-fdWf1luyiMq6WU4HwuZYcL0UdJ0c65.png" alt="AI tracking interface" class="rounded-2xl shadow-lg object-cover w-full h-full">
+                        </div>
+                        <p class="text-gray-600 text-lg">
+                            Gain deeper insights into your emotional well-being with our AI-driven analysis.
+                        </p>
+                    </div>
+
+                    <!-- Real-Time Support with AI -->
+                    <div class="space-y-6">
+                        <div class="text-2xl font-semibold">
+                            <span class="text-gray-400">02.</span> Real-Time Support with AI
+                        </div>
+                        <div class="bg-[#F5E6D3] rounded-3xl p-6 aspect-[9/16] relative">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-11-09%20at%202.59.24%E2%80%AFPM-mVh7ATx0m8nORNvF0p1Y4kbd2DiCHj.png" alt="Chat interface" class="rounded-2xl shadow-lg object-cover w-full h-full">
+                        </div>
+                        <p class="text-gray-600 text-lg">
+                            Receive personalized guidance with our highly effective AI assistant - Ella, feel supported every step of the way.
+                        </p>
+                    </div>
+
+                    <!-- Improve Your Well-Being -->
+                    <div class="space-y-6">
+                        <div class="text-2xl font-semibold">
+                            <span class="text-gray-400">03.</span> Improve Your Well-Being
+                        </div>
+                        <div class="bg-orange-100 rounded-3xl p-6 aspect-[9/16] relative">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-11-09%20at%203.00.22%E2%80%AFPM-03aKfFjBdcfXt8h3MibSeqw1luhc0B.png" alt="Well-being tracking interface" class="rounded-2xl shadow-lg object-cover w-full h-full">
+                        </div>
+                        <p class="text-gray-600 text-lg">
+                            Gain insights into your emotional health with AI-driven metrics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journal Section -->
+        <div id="journal-section" class="bg-orange-50 py-24">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-3xl font-bold text-center mb-8">Record Your Journal Entry</h2>
+                    <div class="aspect-w-16 aspect-h-9 mb-6 relative">
+                        <video id="video" class="rounded-lg shadow-md w-full h-full object-cover"></video>
+                        <div id="recording-indicator" class="hidden absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-center space-x-4">
+                        <button id="start-recording" class="bg-[#B84545] hover:bg-[#963838] text-white px-6 py-4 rounded-full">
+                            Start Recording
+                        </button>
+                        <button id="stop-recording" class="hidden bg-red-500 hover:bg-red-600 text-white px-6 py-4 rounded-full">
+                            Stop Recording
+                        </button>
+                        <button id="download-video" class="hidden border-[#B84545] text-[#B84545] hover:bg-[#B84545] hover:text-white px-6 py-4 rounded-full border">
+                            Download as MP4
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advice Section (Initially Hidden) -->
+        <div id="advice-section" class="hidden bg-white py-24">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-3xl font-bold text-center mb-8">Advice</h2>
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="text-2xl font-semibold mr-4">Your current mood:</div>
+                        <div id="current-mood" class="text-6xl"></div>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4">Ella's Advice:</h3>
+                        <p id="ai-advice" class="text-gray-700"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+        let startTime;
+        let timerInterval;
+
+        const startRecordingBtn = document.getElementById('start-recording');
+        const stopRecordingBtn = document.getElementById('stop-recording');
+        const downloadVideoBtn = document.getElementById('download-video');
+        const recordingIndicator = document.getElementById('recording-indicator');
+        const video = document.getElementById('video');
+
+        startRecordingBtn.addEventListener('click', startRecording);
+        stopRecordingBtn.addEventListener('click', stopRecording);
+        downloadVideoBtn.addEventListener('click', downloadVideo);
+
+        async function startRecording() {
+            // Capture both audio and video with high audio quality settings
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: { 
+                    echoCancellation: true, 
+                    noiseSuppression: true, 
+                    sampleRate: 44100 // Set a higher sample rate for better audio quality
+                }
+            });
+            
+            video.srcObject = stream;
+            video.muted = true; // Mute the video element to avoid audio feedback
+            video.play();
+
+            // Use VP8 codec with Opus audio for higher compatibility and quality
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/mp4; codecs=avc1' });
+            
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+            mediaRecorder.start();
+
+            startTime = Date.now();
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 1000);
+
+            startRecordingBtn.classList.add('hidden');
+            stopRecordingBtn.classList.remove('hidden');
+            recordingIndicator.classList.remove('hidden');
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            clearInterval(timerInterval);
+
+            const tracks = video.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
+
+            stopRecordingBtn.classList.add('hidden');
+            downloadVideoBtn.classList.remove('hidden');
+            recordingIndicator.classList.add('hidden');
+        }
+
+        function updateTimer() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (elapsedTime % 60).toString().padStart(2, '0');
+            recordingIndicator.textContent = `${minutes}:${seconds}`;
+        }
+
+        function downloadVideo() {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'journal_entry.mp4'; // Setting extension as .mp4
+            a.click();
+
+            URL.revokeObjectURL(url);
+            recordedChunks = [];
+        }
+    </script>
+</body>
+</html>
