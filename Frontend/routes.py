@@ -1,12 +1,10 @@
 import sys
 import os
-from flask import Blueprint, render_template, request, jsonify
 import time
+from flask import Blueprint, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 
-# Add the current directory to the Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
+import transcriber
 import senti
 
 main_bp = Blueprint('main', __name__)
@@ -52,18 +50,24 @@ def sentimental_analysis():
     # Define the file path
     file_path = os.path.join(upload_folder, filename)
     
-    # Save the video to disk
+    # Save the video file
     video.save(file_path)
-
-    # Run sentiment analysis or other processing on the video file
-    a = senti.run()  # Assuming senti.run() processes the file in the specified location
     
-    # Simulate AI-based analysis results
-    time.sleep(1)  # Simulate some processing delay
+    # Transcribe the video file
+    transcriber.run(file_path)  # Pass the file_path to transcriber.run()
+
+    # Run sentiment analysis on the transcribed data or video file
+    sentiment_result = senti.run()  # Assuming senti.run() processes the file
+    
+    # Simulate AI-based analysis results (this part may depend on your sentiment model output)
+    current_mood = sentiment_result[0][1]
+    ai_advice = f"Based on your journal entry, it seems you are feeling {current_mood}. {sentiment_result[1][0]}: {sentiment_result[1][1]}" if sentiment_result else "No advice available at this time."
+    
+    # Simulate processing delay
+    time.sleep(1)
     
     return jsonify({
         'success': True,
-        'message': 'Your journal entry has been submitted and analyzed.',
-        'current_mood': '😊',
-        'ai_advice': f"{a[0][1]}\n {a[1][0]}: {a[1][1]}"
+        'message': 'Your journal entry has been submitted.',
+        'ai_advice': ai_advice
     })

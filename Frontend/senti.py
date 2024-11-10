@@ -114,7 +114,7 @@ def run():
     advisor = JournalAdvisor()
 
     # Get journal entry from user
-    with open('Frontend/transcript.txt', encoding='utf8') as file_object:
+    with open('transcript.txt', encoding='utf8') as file_object:
     # Text from File
         journal = file_object.read()
 
