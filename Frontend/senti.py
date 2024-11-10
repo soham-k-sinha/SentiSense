@@ -109,18 +109,15 @@ class JournalAdvisor:
             output += f"📌 {category}:\n   {suggestion}\n\n"
         return output
 
-def main():
+def run():
     # Example usage
     advisor = JournalAdvisor()
-    
+
     # Get journal entry from user
-    with open('Sentiment Analysis/transcript.txt', encoding='utf8') as file_object:
+    with open('Frontend/transcript.txt', encoding='utf8') as file_object:
     # Text from File
         journal = file_object.read()
-    
+
     # Generate and print advice
     advice_list = advisor.generate_advice(journal)
     print("\n" + advisor.format_advice(advice_list))
-
-if __name__ == "__main__":
-    main()

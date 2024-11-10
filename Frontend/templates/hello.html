@@ -187,85 +187,100 @@
 
     <script>
         let mediaRecorder;
-        let recordedChunks = [];
-        let startTime;
-        let timerInterval;
+    let recordedChunks = [];
+    let startTime;
+    let timerInterval;
 
-        const startRecordingBtn = document.getElementById('start-recording');
-        const stopRecordingBtn = document.getElementById('stop-recording');
-        const downloadVideoBtn = document.getElementById('download-video');
-        const recordingIndicator = document.getElementById('recording-indicator');
-        const video = document.getElementById('video');
+    const startRecordingBtn = document.getElementById('start-recording');
+    const stopRecordingBtn = document.getElementById('stop-recording');
+    const recordingIndicator = document.getElementById('recording-indicator');
+    const video = document.getElementById('video');
 
-        startRecordingBtn.addEventListener('click', startRecording);
-        stopRecordingBtn.addEventListener('click', stopRecording);
-        downloadVideoBtn.addEventListener('click', downloadVideo);
+    startRecordingBtn.addEventListener('click', startRecording);
+    stopRecordingBtn.addEventListener('click', stopRecording);
 
-        async function startRecording() {
-            // Capture both audio and video with high audio quality settings
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: { 
-                    echoCancellation: true, 
-                    noiseSuppression: true, 
-                    sampleRate: 44100 // Set a higher sample rate for better audio quality
-                }
-            });
-            
-            video.srcObject = stream;
-            video.muted = true; // Mute the video element to avoid audio feedback
-            video.play();
+    async function startRecording() {
+        // Capture both audio and video with high audio quality settings
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: { 
+                echoCancellation: true, 
+                noiseSuppression: true, 
+                sampleRate: 44100 // Set a higher sample rate for better audio quality
+            }
+        });
+        
+        video.srcObject = stream;
+        video.muted = true; // Mute the video element to avoid audio feedback
+        video.play();
 
-            // Use VP8 codec with Opus audio for higher compatibility and quality
-            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/mp4; codecs=avc1' });
-            
-            mediaRecorder.ondataavailable = (event) => {
-                if (event.data.size > 0) {
-                    recordedChunks.push(event.data);
-                }
-            };
-            mediaRecorder.start();
+        // Use VP8 codec with Opus audio for higher compatibility and quality
+        mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/mp4; codecs=avc1' });
+        
+        mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
+        };
+        mediaRecorder.start();
 
-            startTime = Date.now();
-            updateTimer();
-            timerInterval = setInterval(updateTimer, 1000);
+        startTime = Date.now();
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
 
-            startRecordingBtn.classList.add('hidden');
-            stopRecordingBtn.classList.remove('hidden');
-            recordingIndicator.classList.remove('hidden');
+        startRecordingBtn.classList.add('hidden');
+        stopRecordingBtn.classList.remove('hidden');
+        recordingIndicator.classList.remove('hidden');
+    }
+
+    function stopRecording() {
+        mediaRecorder.stop();
+        clearInterval(timerInterval);
+
+        const tracks = video.srcObject.getTracks();
+        tracks.forEach(track => track.stop());
+
+        stopRecordingBtn.classList.add('hidden');
+        recordingIndicator.classList.add('hidden');
+
+        // Send video data to the server
+        sendVideoDataToServer(recordedChunks);
+    }
+
+    function updateTimer() {
+        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
+        const seconds = (elapsedTime % 60).toString().padStart(2, '0');
+        recordingIndicator.textContent = `${minutes}:${seconds}`;
+    }
+
+    async function sendVideoDataToServer(chunks) {
+        // Convert video data to Blob
+        const blob = new Blob(chunks, { type: 'video/mp4' });
+
+        // Create a FormData object to send the video data to the server
+        const formData = new FormData();
+        formData.append('video', blob, 'journal_entry.mp4');
+
+        // Send the video data to the backend for sentiment analysis
+        const response = await fetch('/sentiment_analysis', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        
+        // Handle server response with AI analysis results
+        if (result.success) {
+            document.getElementById('current-mood').textContent = result.current_mood;
+            document.getElementById('ai-advice').textContent = result.ai_advice;
+
+            // Show the advice section
+            document.getElementById('advice-section').classList.remove('hidden');
+        } else {
+            alert('There was an issue processing your journal entry.');
         }
-
-        function stopRecording() {
-            mediaRecorder.stop();
-            clearInterval(timerInterval);
-
-            const tracks = video.srcObject.getTracks();
-            tracks.forEach(track => track.stop());
-
-            stopRecordingBtn.classList.add('hidden');
-            downloadVideoBtn.classList.remove('hidden');
-            recordingIndicator.classList.add('hidden');
-        }
-
-        function updateTimer() {
-            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-            const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
-            const seconds = (elapsedTime % 60).toString().padStart(2, '0');
-            recordingIndicator.textContent = `${minutes}:${seconds}`;
-        }
-
-        function downloadVideo() {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'journal_entry.mp4'; // Setting extension as .mp4
-            a.click();
-
-            URL.revokeObjectURL(url);
-            recordedChunks = [];
-        }
+    }
     </script>
 </body>
 </html>
