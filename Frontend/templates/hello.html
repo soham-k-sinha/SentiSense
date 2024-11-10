@@ -173,8 +173,6 @@
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-3xl font-bold text-center mb-8">Advice</h2>
                     <div class="flex items-center justify-center mb-6">
-                        <div class="text-2xl font-semibold mr-4">Your current mood:</div>
-                        <div id="current-mood" class="text-6xl"></div>
                     </div>
                     <div class="bg-gray-100 p-6 rounded-lg">
                         <h3 class="text-xl font-semibold mb-4">Ella's Advice:</h3>
@@ -206,7 +204,7 @@
             audio: { 
                 echoCancellation: true, 
                 noiseSuppression: true, 
-                sampleRate: 44100 // Set a higher sample rate for better audio quality
+                sampleRate: 44300 // Set a higher sample rate for better audio quality
             }
         });
         
@@ -222,29 +220,32 @@
                 recordedChunks.push(event.data);
             }
         };
+        recordedChunks = []; // Clear recorded chunks before starting a new recording
         mediaRecorder.start();
-
+    
         startTime = Date.now();
         updateTimer();
         timerInterval = setInterval(updateTimer, 1000);
-
+    
         startRecordingBtn.classList.add('hidden');
         stopRecordingBtn.classList.remove('hidden');
         recordingIndicator.classList.remove('hidden');
     }
-
+    
     function stopRecording() {
         mediaRecorder.stop();
         clearInterval(timerInterval);
-
+    
         const tracks = video.srcObject.getTracks();
         tracks.forEach(track => track.stop());
-
+    
         stopRecordingBtn.classList.add('hidden');
         recordingIndicator.classList.add('hidden');
-
-        // Send video data to the server
-        sendVideoDataToServer(recordedChunks);
+    
+        mediaRecorder.onstop = () => {
+            // Send video data to the server after recording stops
+            sendVideoDataToServer(recordedChunks);
+        };
     }
 
     function updateTimer() {
@@ -272,7 +273,6 @@
         
         // Handle server response with AI analysis results
         if (result.success) {
-            document.getElementById('current-mood').textContent = result.current_mood;
             document.getElementById('ai-advice').textContent = result.ai_advice;
 
             // Show the advice section
