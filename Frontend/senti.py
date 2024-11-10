@@ -120,4 +120,4 @@ def run():
 
     # Generate and print advice
     advice_list = advisor.generate_advice(journal)
-    print("\n" + advisor.format_advice(advice_list))
+    return advice_list

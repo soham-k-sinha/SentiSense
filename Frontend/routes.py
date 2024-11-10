@@ -56,7 +56,7 @@ def sentimental_analysis():
     video.save(file_path)
 
     # Run sentiment analysis or other processing on the video file
-    senti.run()  # Assuming senti.run() processes the file in the specified location
+    a = senti.run()  # Assuming senti.run() processes the file in the specified location
     
     # Simulate AI-based analysis results
     time.sleep(1)  # Simulate some processing delay
@@ -65,5 +65,5 @@ def sentimental_analysis():
         'success': True,
         'message': 'Your journal entry has been submitted and analyzed.',
         'current_mood': '😊',
-        'ai_advice': "Based on your journal entry, it seems you're doing well. Keep up the positive attitude and remember to take breaks when needed."
+        'ai_advice': f"{a[0][1]}\n {a[1][0]}: {a[1][1]}"
     })
